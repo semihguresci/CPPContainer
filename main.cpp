@@ -17,6 +17,7 @@
 #include  <D2BinaryIndexTree.h>
 #include <BITRangeUpdate.h>
 #include <SuffixArrayIntroduction.h>
+#include <QuickSort.h>
 //#include <UkkonenSuffixTree.h>
 int main()
 {
@@ -59,6 +60,9 @@ int main()
     SuffixArrayINTRO::SuffixArrayTest* t = new SuffixArrayINTRO::SuffixArrayTest();
     t->Run();
     delete t;
+
+    QuickSort::Run();
+
     
 
     return 0;

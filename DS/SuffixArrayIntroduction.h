@@ -155,8 +155,8 @@ namespace SuffixArrayINTRO
 			t->buildSuffixArray(txt, n);
 			cout << "Following is suffix array for " << txt << endl;
 			t->printSuffixArr();
-			t->search("nan");
-			t->search("xyz");
+			t->search((char*)"nan");
+			t->search((char*)"xyz");
 		}
 	};
 
