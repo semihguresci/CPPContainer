@@ -18,6 +18,7 @@
 #include <BITRangeUpdate.h>
 #include <SuffixArrayIntroduction.h>
 #include <QuickSort.h>
+#include <SpanTest.h>
 //#include <UkkonenSuffixTree.h>
 int main()
 {
@@ -62,7 +63,7 @@ int main()
     delete t;
 
     QuickSort::Run();
-
+    SpanTest::Run();
     
 
     return 0;

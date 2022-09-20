@@ -3,4 +3,4 @@ project(CPPContainer)
 
 set(CMAKE_CXX_STANDARD 20)
 include_directories("DS")
-add_executable(CPPContainer main.cpp DS/LazyPropogationInSegmentTree.h DS/IntervalMap.h DS/ST_Persistency.h DS/LongestPrefixMatching.h "DS/ReverseDNSLookUp.h" "DS/ForwardDNSLookupCache.h" "DS/BinaryIndexedTreeFenwick.h" "DS/BITRangeUpdate.h" "DS/SuffixArrayIntroduction.h" "DS/UkkonenSuffixTree.h" "DS/QuickSort.h")
+add_executable(CPPContainer main.cpp DS/LazyPropogationInSegmentTree.h DS/IntervalMap.h DS/ST_Persistency.h DS/LongestPrefixMatching.h "DS/ReverseDNSLookUp.h" "DS/ForwardDNSLookupCache.h" "DS/BinaryIndexedTreeFenwick.h" "DS/BITRangeUpdate.h" "DS/SuffixArrayIntroduction.h" "DS/UkkonenSuffixTree.h" "DS/QuickSort.h" "DS/SpanTest.h")

@@ -18,6 +18,12 @@ namespace QuickSort
 	size_t max_word_length(const Words& words);
 	std::optional<size_t> find_last(std::string_view&, char to_find, std::optional<size_t> start_index = std::nullopt);
 
+	template <typename T1, typename T2>
+	decltype(auto) larger(const T1& a, const T2& b)
+	{
+		return a > b ? a : b;
+	}
+
 	void swap(Words& words, size_t first, size_t second)
 	{
 		auto temp{ words[first] };
@@ -54,7 +60,7 @@ namespace QuickSort
 	{
 		size_t max{};
 		for (auto& pword : words)
-			if (max < pword->length()) max = pword->length();
+			max = larger(max, pword->length());
 		return max;
 	}
 
@@ -120,6 +126,7 @@ namespace QuickSort
 			std::cout << "Found an early i at index " << *found_early_i << std::endl;
 
 	}
+
 	void Run()
 	{
 
