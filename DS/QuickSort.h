@@ -12,7 +12,7 @@ namespace QuickSort
 	void swap(Words& words, size_t first, size_t second);
 	void sort(Words& words);
 	void sort(Words& words, size_t start, size_t end);
-	void extract_words(Words& words, const std::string& text, const std::string& separators);
+	void extract_words(Words& words, std::string_view& text, std::string_view& separators);
 	void show_words(const Words& words);
 	size_t max_word_length(const Words& words);
 
@@ -74,7 +74,7 @@ namespace QuickSort
 		std::cout << std::endl;
 	}
 
-	void extract_words(Words& words, const std::string& text, const std::string& separators)
+	void extract_words(Words& words, std::string_view& text, std::string_view& separators)
 	{
 		size_t start{ text.find_first_not_of(separators) };
 		while (start != std::string::npos)
@@ -102,11 +102,14 @@ namespace QuickSort
 		std::stringstream myStream(input);
 	
 		getline(myStream, text, '*');
-		extract_words(words, text, separators);
+		std::string_view sv_text(text);
+		std::string_view sv_separators(separators);
+		extract_words(words, sv_text, sv_separators);
 		if (words.empty())
 		{
 			std::cout << "No words in text." << std::endl;
-			return 0;
+			return;
+
 		}
 		sort(words); 
 		show_words(words); 
