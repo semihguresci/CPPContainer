@@ -22,6 +22,7 @@
 #include <RandomInRange.h>
 #include <OptionalTest.h>
 #include <romanTest.h>
+#include <TruckLoadBox.h>
 
 //#include <UkkonenSuffixTree.h>
 int main()
@@ -71,6 +72,6 @@ int main()
     RandomInRange::Run();
     OT::Run;
     RomanTest::Run();
-
+    TruckLoadBox::Run();
     return 0;
 }
