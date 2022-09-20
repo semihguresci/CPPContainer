@@ -2,10 +2,11 @@
 #include <iostream>
 #include <format>
 #include <memory>
-#include<string>
+#include <string>
 #include <sstream>
 #include <vector>
 #include <optional>
+#include <random>
 
 namespace QuickSort
 {
@@ -16,8 +17,8 @@ namespace QuickSort
 	void extract_words(Words& words, std::string_view& text, std::string_view& separators);
 	void show_words(const Words& words);
 	size_t max_word_length(const Words& words);
-	std::optional<size_t> find_last(std::string_view&, char to_find, std::optional<size_t> start_index = std::nullopt);
-
+	
+	// const auto& larger(const auto& a, const auto& b);
 	template <typename T1, typename T2>
 	decltype(auto) larger(const T1& a, const T2& b)
 	{
@@ -95,37 +96,6 @@ namespace QuickSort
 		}
 	}
 
-	std::optional<size_t> find_last(std::string_view& string, char to_find, std::optional<size_t> start_index)
-	{
-		if (string.empty())
-			return std::nullopt;
-				
-		size_t index = start_index.value_or(string.size() - 1);
-		while (true)
-		{
-			if (string[index] == to_find) return index;
-			if (index == 0) return std::nullopt;
-			--index;
-		}
-	}
-
-	void RunOptional() {
-
-		std::string_view string{ "Growing old is mandatory; growing up is optional." };
-		
-		const std::optional<size_t> found_a{ find_last(string, 'a') };
-		if (found_a)
-			std::cout << "Found the last a at index " << *found_a << std::endl;
-
-		const auto found_b{ find_last(string, 'b') };
-		if (found_b.has_value())
-			std::cout << "Found the last b at index " << found_b.value() << std::endl;
-		
-		const auto found_early_i{ find_last(string, 'i', 10) };
-		if (found_early_i != std::nullopt)
-			std::cout << "Found an early i at index " << *found_early_i << std::endl;
-
-	}
 
 	void Run()
 	{
@@ -153,8 +123,6 @@ namespace QuickSort
 		}
 		sort(words); 
 		show_words(words); 
-
-		RunOptional();
 	}
 }
 

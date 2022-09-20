@@ -19,6 +19,10 @@
 #include <SuffixArrayIntroduction.h>
 #include <QuickSort.h>
 #include <SpanTest.h>
+#include <RandomInRange.h>
+#include <OptionalTest.h>
+#include <romanTest.h>
+
 //#include <UkkonenSuffixTree.h>
 int main()
 {
@@ -64,7 +68,9 @@ int main()
 
     QuickSort::Run();
     SpanTest::Run();
-    
+    RandomInRange::Run();
+    OT::Run;
+    RomanTest::Run();
 
     return 0;
 }
