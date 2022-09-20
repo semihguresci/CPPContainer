@@ -7,6 +7,7 @@
 #include <vector>
 #include <optional>
 #include <span>
+#include <compare>
 
 namespace TruckLoadBox 
 {
@@ -17,7 +18,7 @@ namespace TruckLoadBox
     inline auto randomSharedBox();
     inline auto createUniformPseudoRandomNumberGenerator(double max);
     inline auto randomSharedBox();
-    
+    std::ostream& operator<<(std::ostream& stream, const Box& box);
     class Box
     {
     public:
@@ -30,16 +31,39 @@ namespace TruckLoadBox
             return m_length * m_width * m_height;
         }
 
+        double getLength() const { return m_length; }
+        double getWidth() const { return m_width; }
+        double getHeight() const { return m_height; }
+
         int compare(const Box& box) const
         {
             if (volume() < box.volume()) return -1;
             if (volume() == box.volume()) return 0;
             return +1;
         }
+        std::partial_ordering operator<=>(const Box& aBox) const;
+        std::partial_ordering operator<=>(double value) const;
+        bool operator==(const Box& aBox) const = default;
+        Box& operator+=(const Box& aBox);     
+        Box operator+(const Box& aBox) const; 
+
+        /*
+        std::partial_ordering operator<=>(const Box& box) {
+            return volume() <=> box.volume();
+        }
+        std::partial_ordering operator<=>(double v) {
+            return volume() <=> v;
+        }
+        */
+
+        bool operator== (const Box& box) {
+            return m_length == box.m_length && m_width == box.m_width && m_height == box.m_height;
+        } 
 
         void listBox() const
         {
-            std::cout << std::format("Box({:.1f},{:.1f},{:.1f})", m_length, m_width, m_height);
+            std::cout << *this;
+            //std::cout << std::format("Box({:.1f},{:.1f},{:.1f})", m_length, m_width, m_height);
         }
 
     private:
@@ -80,6 +104,38 @@ namespace TruckLoadBox
         std::shared_ptr<Package> m_tail{ nullptr };               
         std::shared_ptr<Package> m_current{ nullptr };            
     };
+
+    std::ostream& operator<<(std::ostream& stream, const Box& box)
+    {
+        stream << std::format("Box({:.1f},{:.1f},{:.1f})", box.getLength(), box.getWidth(), box.getHeight());
+        return stream;
+    }
+
+    Box& Box::operator+=(const Box& aBox)
+    {
+        
+        m_length = std::max(m_length, aBox.m_length);
+        m_width = std::max(m_width, aBox.m_width);
+        m_height += aBox.m_height;
+        return *this;
+    }
+
+    Box Box::operator+(const Box& aBox) const
+    {
+        Box copy{ *this };
+        copy += aBox;
+        return copy;
+    }
+
+    std::partial_ordering Box::operator<=>(const Box& aBox) const
+    {
+        return volume() <=> aBox.volume();
+    }
+
+    std::partial_ordering Box::operator<=>(double value) const
+    {
+        return volume() <=> value;
+    }
 
     
     inline auto createUniformPseudoRandomNumberGenerator(double max)
@@ -205,7 +261,7 @@ namespace TruckLoadBox
     void Run()
     {
         Truckload load1;        
-        const size_t boxCount{ 12 };
+        size_t boxCount{ 12 };
         for (size_t i{}; i < boxCount; ++i)
             load1.addBox(randomSharedBox());
 
@@ -253,5 +309,44 @@ namespace TruckLoadBox
         std::cout << "\nThe smallest box in the second list is ";
         smallestBox->listBox();
         std::cout << std::endl;
+
+        const double limit{ 99 };       
+        auto random{ createUniformPseudoRandomNumberGenerator(limit) };
+
+        boxCount =  20 ; 
+        boxes.clear();
+
+        
+        for (size_t i{}; i < boxCount; ++i)
+            boxes.push_back(std::make_shared<Box>(Box{ random(), random(), random() }));
+
+        size_t first{};            
+        size_t second{ 1 };        
+        double minVolume{ (*boxes[first] + *boxes[second]).volume() };
+
+        for (size_t i{}; i < boxCount - 1; ++i)
+        {
+            for (size_t j{ i + 1 }; j < boxCount; j++)
+            {
+                if (*boxes[i] + *boxes[j] < minVolume)
+                {
+                    first = i;
+                    second = j;
+                    minVolume = (*boxes[i] + *boxes[j]).volume();
+                }
+            }
+        }
+
+        std::cout << "The two boxes that sum to the smallest volume are "<< *boxes[first] << " and " << *boxes[second] << '\n';
+        std::cout << std::format("The volume of the first box is {:.1f}\n",boxes[first]->volume());
+        std::cout << std::format("The volume of the second box is {:.1f}\n",boxes[second]->volume());
+        std::cout << "The sum of these boxes is " << (*boxes[first] + *boxes[second]) << '\n';
+        std::cout << std::format("The volume of the sum is {:.1f}", minVolume) << std::endl;
+
+        Box sum{ 0, 0, 0 };            
+        for (const auto& box : boxes)  
+            sum += *box;
+
+        std::cout << "The sum of " << boxCount << " random boxes is " << sum << std::endl;
     }
 }
