@@ -25,7 +25,8 @@
 #include <TruckLoadBox.h>
 #include "Polymorphism/pTestRun.h"
 #include "Movesemantics/Movesemantics.h"
-
+#include "FuctionPointerLamda/Optimum.h"
+#include "FuctionPointerLamda/FPLamdaTest.h"
 //#include <UkkonenSuffixTree.h>
 int main()
 {
@@ -79,6 +80,6 @@ int main()
 
     Polymorphism::Run();
     Movesemantics::Run();
-
+    FuctionPointerLamda::Run();
     return 0;
 }

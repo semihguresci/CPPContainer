@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <format>
 #include<string>
@@ -11,6 +12,14 @@ namespace RandomInRange
 		return (value <= upper) && (value >= lower);
 	}
 
+	template <typename T, T lowerlimit, T upperLimit>
+	T getRandomNum() {
+		std::random_device r;
+		std::default_random_engine e1(r());
+		std::uniform_int_distribution<T> ud(lowerlimit, upperLimit);
+		return  ud(e1);
+	}
+	
 	void Run() {
 		std::random_device r;
 		std::default_random_engine e1(r());
