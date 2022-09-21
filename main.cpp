@@ -23,6 +23,7 @@
 #include <OptionalTest.h>
 #include <romanTest.h>
 #include <TruckLoadBox.h>
+#include "Polymorphism/pTestRun.h"
 
 //#include <UkkonenSuffixTree.h>
 int main()
@@ -73,5 +74,9 @@ int main()
     OT::Run;
     RomanTest::Run();
     TruckLoadBox::Run();
+    std::cout << std::endl;
+
+    Polymorphism::Run();
+
     return 0;
 }
