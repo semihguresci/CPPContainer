@@ -24,6 +24,7 @@
 #include <romanTest.h>
 #include <TruckLoadBox.h>
 #include "Polymorphism/pTestRun.h"
+#include "Movesemantics/Movesemantics.h"
 
 //#include <UkkonenSuffixTree.h>
 int main()
@@ -77,6 +78,7 @@ int main()
     std::cout << std::endl;
 
     Polymorphism::Run();
+    Movesemantics::Run();
 
     return 0;
 }
